@@ -1,22 +1,26 @@
 {
-  "name": "electron-quick-start",
+  "name": "PttRealTime",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "PttRealTime",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . PttRealTime --overwrite --asar --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName= --version-string.FileDescription= --version-string.ProductName=\"PttRealTime\" --ignore=node_modules/electron-*",
+    "package-win-large": "electron-packager . PttRealTime --overwrite --asar --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds-large --version-string.CompanyName= --version-string.FileDescription= --version-string.ProductName=\"PttRealTime\"",
+    "package-linux": "electron-packager . PttRealTime --overwrite --asar --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Electron"
   ],
-  "author": "GitHub",
+  "author": "HowardLiu",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.8.2"
+    "electron": "~1.7.8",
+    "electron-packager": "^11.1.0"
+  },
+  "dependencies": {
+    "nightmare": "^3.0.0"
   }
 }

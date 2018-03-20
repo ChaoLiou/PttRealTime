@@ -1,19 +1,134 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
 
-    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Ptt RealTime</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+  <script>
+    if (typeof module === 'object') {
+      window.module = module;
+      module = undefined;
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: Microsoft JhengHei;
+      font-size: 20px;
+      background-color: ghostwhite;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+    }
+
+    .list-group {
+      grid-column: 3 / 8;
+    }
+
+    .go-next-page,
+    .go-prev-page {
+      position: fixed;
+      top: 50vh;
+      cursor: pointer;
+    }
+
+    .go-next-page:hover,
+    .go-prev-page:hover,
+    .reload:hover {
+      opacity: 0.5;
+    }
+
+    .go-prev-page {
+      right: 0;
+    }
+
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .menu {
+      height: 56px;
+      display: grid;
+      grid-template-columns: repeat(20, 1fr);
+      grid-column: 1 / -1;
+    }
+
+    .current-page {
+      grid-column: 1 / 4;
+      font-size: 36px;
+    }
+
+    .reload {
+      grid-column: -1 / -1;
+      width: 56px;
+      cursor: pointer;
+    }
+
+    .reload.loading {
+      animation: spin 2s infinite linear;
+    }
+
+    .board-change {
+      grid-column: 5 / 16;
+      height: 50px;
+    }
+
+    .dropdown-menu {
+      transform: translate3d(0px, 50px, 0px) !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <div class="menu">
+      <span class="current-page"></span>
+      <div class="input-group board-change">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HotBoards</button>
+          <div class="dropdown-menu">
+          </div>
+        </div>
+        <input type="text" class="form-control dropdown-filter" value="Gossiping" placeholder="Board Name...">
+        <div class="input-group-append">
+          <button class="btn btn-outline-primary go" type="button">Go</button>
+        </div>
+      </div>
+      <div class="reload loading" title="to latest page">
+        <i class="fas fa-sync-alt fa-3x"></i>
+      </div>
+    </div>
+    <div class="go-next-page">
+      <i class="fas fa-angle-left fa-7x"></i>
+    </div>
+    <div class="go-prev-page">
+      <i class="fas fa-angle-right fa-7x"></i>
+    </div>
+    <div class="list-group"></div>
+  </div>
+  <script>  
+    require('./renderer.js');
+    function browserOpen(a) {
+      const { shell } = require('electron');
+      shell.openExternal(a.href);
+    }
+  </script>
+</body>
+
 </html>
