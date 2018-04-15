@@ -18,9 +18,9 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "~1.7.8",
-    "electron-packager": "^11.1.0"
+    "electron-packager": "^11.1.0",
+    "nightmare": "^3.0.0"
   },
   "dependencies": {
-    "nightmare": "^3.0.0"
   }
 }
